@@ -85,51 +85,28 @@ logreg_test = LogisticRegression(random_state=1, class_weight='balanced')
 logreg_test.fit(df, y)
 logreg_test.predict_proba(df)
 
-gammas = [9e-6, 1e-5, 2e-5, 3e-5, 4e-5, 5e-5, 6e-5, 7e-5, 8e-5, 9e-5]
-label_prop_test('rbf', gammas, X_1_2, X_3, y_1_2, y_3)
+'''gammas = [9e-6, 1e-5, 2e-5, 3e-5, 4e-5, 5e-5, 6e-5, 7e-5, 8e-5, 9e-5]
+label_prop_test('rbf', gammas, X_1_2, X_3, y_1_2, y_3)'''
 
 ns = np.arange(50,60)
 label_prop_test('knn', ns, X_1_2, X_3, y_1_2, y_3)
 
-lp_rbf = LabelPropagation(kernel='rbf', gamma=9e-6, max_iter=100000, tol=0.0001)
+'''lp_rbf = LabelPropagation(kernel='rbf', gamma=9e-6, max_iter=100000, tol=0.0001)
 lp_rbf.fit(X_1_2, y_1_2)
-results = results.append(pd.Series(['Label Propagation RBF',  roc_auc_score(y_3, lp_rbf.predict_proba(X_3)[:,1])], index=index), ignore_index=True)
+results = results.append(pd.Series(['Label Propagation RBF',  roc_auc_score(y_3, lp_rbf.predict_proba(X_3)[:,1])], index=index), ignore_index=True)'''
 
 lp_knn = LabelPropagation(kernel='knn', n_neighbors=53, max_iter=100000, tol=0.0001)
 lp_knn.fit(X_1_2, y_1_2)
 results = results.append(pd.Series(['Label Propagation KNN', roc_auc_score(y_3, lp_knn.predict_proba(X_3)[:,1])], index=index), ignore_index=True)
 
-results(results)
-
-rbf_lp_test = LabelPropagation(kernel='rbf')
+'''rbf_lp_test = LabelPropagation(kernel='rbf')
 rbf_lp_test.fit(df, y)
-rbf_lp_test.predict_proba(df)
+rbf_lp_test.predict_proba(df)'''
 
 knn_lp_test = LabelPropagation(kernel='knn')
 knn_lp_test.fit(df, y)
 knn_lp_test.predict_proba(df)
 
-gammas = [9e-6, 1e-5, 2e-5, 3e-5, 4e-5, 5e-5, 6e-5, 7e-5, 8e-5, 9e-5]
-label_prop_test('rbf', gammas, X_1_2, X_3, y_1_2, y_3)
-
-ns = np.arange(50,60)
-label_prop_test('knn', ns, X_1_2, X_3, y_1_2, y_3)
-
-lp_rbf = LabelPropagation(kernel='rbf', gamma=9e-6, max_iter=100000, tol=0.0001)
-lp_rbf.fit(X_1_2, y_1_2)
-results = results.append(pd.Series(['Label Propagation RBF', roc_auc_score(y_3, lp_rbf.predict_proba(X_3)[:,1])], index=index), ignore_index=True)
-
-lp_knn = LabelPropagation(kernel='knn', n_neighbors=53, max_iter=100000, tol=0.0001)
-lp_knn.fit(X_1_2, y_1_2)
-results = results.append(pd.Series(['Label Propagation KNN', roc_auc_score(y_3, lp_knn.predict_proba(X_3)[:,1])], index=index), ignore_index=True)
-
-rbf_lp_test = LabelPropagation(kernel='rbf')
-rbf_lp_test.fit(df, y)
-rbf_lp_test.predict_proba(df)
-
-knn_lp_test = LabelPropagation(kernel='knn')
-knn_lp_test.fit(df, y)
-knn_lp_test.predict_proba(df)
 '''
 alphas = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]  
 labels_spread_test('rbf', 1e-5, alphas, X_1_2, X_3, y_1_2, y_3)
