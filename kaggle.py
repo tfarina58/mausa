@@ -54,13 +54,13 @@ def labels_spread_test(kernel, hyperparam, alphas, X_train, X_test, y_train, y_t
 warnings.simplefilter('ignore') #we don't wanna see that
 np.random.seed(1)
 
-MDSFlag = True
+MDSFlag = False
 
 if MDSFlag:
     #take bug_cnt from data 
-    inp = pd.read_csv('PC1.data')
+    inp = pd.read_csv('CM1.data')
     #take MDS data 
-    data = pd.read_pickle('PC1dataMDS.pkl')
+    data = pd.read_pickle('CM1dataMDS.pkl')
     df = pd.DataFrame(data)
     df['bug_cnt'] = inp.iloc[: , -1]
     df.head()
@@ -71,7 +71,7 @@ if MDSFlag:
     y = df['bug_cnt']
     #sns.pairplot(X)
 else:
-    inp = pd.read_csv('PC1.data')
+    inp = pd.read_csv('CM1.data')
     df = pd.DataFrame(inp)
     df.head()
     df.info()
