@@ -44,4 +44,4 @@ print("new line ---------------------------------\n")
 score = accuracy_score(y_test, yhat)
 print("new line ---------------------------------\n")
 # summarize score
-print('Accuracjjjy: %.3f' % (score*100))
+print('Accuracy: %.3f' % (score*100))
