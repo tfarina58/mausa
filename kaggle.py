@@ -54,23 +54,32 @@ def labels_spread_test(kernel, hyperparam, alphas, X_train, X_test, y_train, y_t
 warnings.simplefilter('ignore') #we don't wanna see that
 np.random.seed(1)
 
-#take bug_cnt from data 
-inp = pd.read_csv('KC1.data')
-#take MDS data 
-data = pd.read_pickle('KC1dataMDS.pkl')
+MDSFlag = True
 
-df = pd.DataFrame(data)
-#df['bug_cnt'] = inp['bug_cnt']
-#df = df.drop(['bug_cnt'], axis = 1)
-df['bug_cnt'] = inp.iloc[: , -1]
-df.head()
-df.info()
-
-df.describe()
-df = shuffle(df, random_state=1)
-X = df.drop(['bug_cnt'], axis = 1)
-y = df['bug_cnt']
-#sns.pairplot(X)
+if MDSFlag:
+    #take bug_cnt from data 
+    inp = pd.read_csv('PC1.data')
+    #take MDS data 
+    data = pd.read_pickle('PC1dataMDS.pkl')
+    df = pd.DataFrame(data)
+    df['bug_cnt'] = inp.iloc[: , -1]
+    df.head()
+    df.info()
+    df.describe()
+    df = shuffle(df, random_state=1)
+    X = df.drop(['bug_cnt'], axis = 1)
+    y = df['bug_cnt']
+    #sns.pairplot(X)
+else:
+    inp = pd.read_csv('PC1.data')
+    df = pd.DataFrame(inp)
+    df.head()
+    df.info()
+    df.describe()
+    df = shuffle(df, random_state=1)
+    X = df.drop(df.columns[-1], axis = 1)
+    y = df.iloc[: , -1]
+    
 
 X_1, X_2, X_3  = np.split(X, [int(.1*len(X)), int(.5*len(X))])
 y_1, y_2, y_3  = np.split(y, [int(.1*len(y)), int(.5*len(y))])
