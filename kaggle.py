@@ -30,7 +30,7 @@ def label_prop_test(kernel, params_list, X_train, X_test, y_train, y_test):
     plt.figure(figsize=(16,8))
     plt.plot(params_list, roc_scores)
     plt.title('Label Propagation ROC AUC with ' + kernel + ' kernel')
-    plt.show()
+    #plt.show()
     print('Best metrics value is at {}'.format(params_list[np.argmax(roc_scores)]))
 
 def labels_spread_test(kernel, hyperparam, alphas, X_train, X_test, y_train, y_test):
@@ -48,17 +48,19 @@ def labels_spread_test(kernel, hyperparam, alphas, X_train, X_test, y_train, y_t
     plt.figure(figsize=(16,8))
     plt.plot(alphas, roc_scores)
     plt.title('Label Spreading ROC AUC with ' + kernel + ' kernel')
-    plt.show()
+    #plt.show()
     print('Best metrics value is at {}'.format(alphas[np.argmax(roc_scores)]))
 
 warnings.simplefilter('ignore') #we don't wanna see that
 np.random.seed(1)
 
-data = pd.read_csv('editPDE_R3_1.csv')
+#take bug_cnt from data 
+inp = pd.read_csv('editJDT_R2_0.csv')
+#take MDS data 
+data = pd.read_pickle('editJDT_R2_0MDS.pkl')
 df = pd.DataFrame(data)
-df = df.drop(['bug_cnt'], axis = 1)
-df['bug_cnt'] = data['bug_cnt']
-
+#df = df.drop(['bug_cnt'], axis = 1)
+df['bug_cnt'] = inp['bug_cnt']
 df.head()
 df.info()
 
@@ -75,16 +77,16 @@ y_1_2 = np.concatenate((y_1, y_2.apply(lambda x: -1)))
 X_1_2 = np.concatenate((X_1, X_2))
 index = ['Algorithm', 'ROC AUC']
 results = pd.DataFrame(columns=index)
-'''logreg = LogisticRegression(random_state=1, class_weight='balanced')
+logreg = LogisticRegression(random_state=1, class_weight='balanced')
 logreg.fit(X_1, y_1)
 results = results.append(pd.Series(['Logistic Regression', roc_auc_score(y_3, logreg.predict_proba(X_3)[:,1])], index=index), ignore_index=True)
 
-print(results)
-'''
+#print(results)
+
 logreg_test = LogisticRegression(random_state=1, class_weight='balanced')
 logreg_test.fit(df, y)
 logreg_test.predict_proba(df)
-
+#print(results)  
 '''gammas = [9e-6, 1e-5, 2e-5, 3e-5, 4e-5, 5e-5, 6e-5, 7e-5, 8e-5, 9e-5]
 label_prop_test('rbf', gammas, X_1_2, X_3, y_1_2, y_3)'''
 
