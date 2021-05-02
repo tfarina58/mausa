@@ -1,0 +1,23 @@
+false,true
+
+loc: continuous
+v(g): continuous
+ev(g): continuous
+iv(g): continuous
+n: continuous
+v: continuous
+l: continuous
+d: continuous
+i: continuous
+e: continuous
+b: continuous
+t: continuous
+lOCode: continuous
+lOComment: continuous
+lOBlank: continuous
+locCodeAndComment: continuous
+uniq_Op: continuous
+uniq_Opnd: continuous
+total_Op: continuous
+total_Opnd: continuous
+branchCount: continuous

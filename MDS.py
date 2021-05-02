@@ -4,13 +4,14 @@ from sklearn.manifold import MDS
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-data = pd.read_csv('editJDT_R2_0.csv')
-print(data.shape)
+data = pd.read_csv('KC1.data')
+labels = np.array(data.iloc[: , -1])
+labels = labels.astype(int)
+data = data.drop(data.columns[-1], axis = 1)
+
 print(data)
 
-labels = np.array(data['bug_cnt'])
-labels = labels.astype(int)
-data = data.drop('bug_cnt', axis = 1)
+print(labels)
 
 feature_list = list(data.columns)
 features = np.array(data)
@@ -21,5 +22,5 @@ embedding = MDS(n_components=15)
 features = sc.fit_transform(features)
 features = embedding.fit_transform(features)
 features = pd.DataFrame(features)
-features.to_pickle("editJDT_R2_0MDS.pkl")
+features.to_pickle("KC1dataMDS.pkl")
 print(features)

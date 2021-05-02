@@ -55,26 +55,28 @@ warnings.simplefilter('ignore') #we don't wanna see that
 np.random.seed(1)
 
 #take bug_cnt from data 
-inp = pd.read_csv('editJDT_R2_0.csv')
+inp = pd.read_csv('KC1.data')
 #take MDS data 
-data = pd.read_pickle('editJDT_R2_0MDS.pkl')
+data = pd.read_pickle('KC1dataMDS.pkl')
+
 df = pd.DataFrame(data)
+#df['bug_cnt'] = inp['bug_cnt']
 #df = df.drop(['bug_cnt'], axis = 1)
-df['bug_cnt'] = inp['bug_cnt']
+df['bug_cnt'] = inp.iloc[: , -1]
 df.head()
 df.info()
 
 df.describe()
 df = shuffle(df, random_state=1)
-X = df
+X = df.drop(['bug_cnt'], axis = 1)
 y = df['bug_cnt']
-
-sns.pairplot(X)
+#sns.pairplot(X)
 
 X_1, X_2, X_3  = np.split(X, [int(.1*len(X)), int(.5*len(X))])
 y_1, y_2, y_3  = np.split(y, [int(.1*len(y)), int(.5*len(y))])
 y_1_2 = np.concatenate((y_1, y_2.apply(lambda x: -1)))
 X_1_2 = np.concatenate((X_1, X_2))
+print(X_1_2)
 index = ['Algorithm', 'ROC AUC']
 results = pd.DataFrame(columns=index)
 logreg = LogisticRegression(random_state=1, class_weight='balanced')
