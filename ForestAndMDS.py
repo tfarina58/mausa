@@ -1,17 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-'''data = pd.read_csv('C:\\Users\\Juicero\\Downloads\\PDE_R3_2.csv')
-
-# display
-print("Original 'input.csv' CSV Data: \n")
-print(data)
-
-data.drop('File', inplace=True, axis=1)
-
-data['bug_cnt'] = data['bug_cnt'].astype(bool)
-
-data.to_csv('C:\\Users\\Juicero\\Downloads\\editPDE_R3_2.csv', index = False)'''
 
 from sklearn.manifold import MDS
 
