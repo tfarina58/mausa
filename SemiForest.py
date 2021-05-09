@@ -11,7 +11,7 @@ import pandas as pd
 
 # number of splits
 n_splits = 3
-MDSFlag = True
+MDSFlag = False
 
 if MDSFlag:
     inp = pd.read_csv('KC1.data')
