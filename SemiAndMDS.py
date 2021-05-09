@@ -2,40 +2,34 @@ import pandas as pd
 import numpy as np
 from sklearn.manifold import MDS
 from sklearn.linear_model import LogisticRegression
+from sklearn.utils import shuffle
 
 SEED = 42
 
-data = pd.read_csv('editPDE_R3_1.csv')
-print(data.shape)
-print(data)
+MDSFlag = True
 
-labels = np.array(data['bug_cnt'])
-labels = labels.astype(int)
-data = data.drop('bug_cnt', axis = 1)
-
-feature_list = list(data.columns)
-features = np.array(data)
+if MDSFlag:
+    inp = pd.read_csv('editPDE_R3_1.csv')
+    labels = np.array(inp.iloc[: , -1])
+    labels = labels.astype(int)
+    features = pd.read_pickle('editPDE_R3_1MDS.pkl')
+else:
+    features = pd.read_csv('editPDE_R3_1.csv')
+    labels = np.array(features.iloc[: , -1])
+    labels = labels.astype(int)
+    features = features.drop(features.columns[-1], axis = 1)
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import f1_score
 from imblearn.under_sampling import RandomUnderSampler
 
-'''sc = StandardScaler()
-embedding = MDS(n_components=15)
-
-features = sc.fit_transform(features)
-features = embedding.fit_transform(features)
-features = pd.DataFrame(features)
-features.to_pickle("save.pkl")
-print(features)'''
-
-features = pd.read_pickle("save.pkl")
-
 #train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 0.25, random_state = SEED)
 
+features, labels = shuffle(features, labels, random_state=42) # shuffle the data
+
 test_ind = round(len(features)*0.25) #Za testiranje
-train_ind = test_ind + round(len(features)*0.01) #Labeled
-unlabeled_ind = train_ind + round(len(features)*0.74) #Unlabeled
+train_ind = test_ind + round(len(features)*0.05) #Labeled
+unlabeled_ind = train_ind + round(len(features)*0.70) #Unlabeled
 
 test = features.iloc[:test_ind]
 train = features.iloc[test_ind:train_ind]
@@ -43,7 +37,7 @@ unlabeled = features.iloc[train_ind:unlabeled_ind]
 
 X_train = train
 y_train = pd.DataFrame(labels[test_ind:train_ind])
-
+print(y_train)
 X_unlabeled = unlabeled
 
 X_test = test
@@ -65,7 +59,7 @@ from sklearn.metrics import  roc_auc_score
 while len(high_prob) > 0:
         
     # Fit classifier and make train/test predictions
-    clf = LogisticRegression(max_iter=1000)
+    clf = LogisticRegression(max_iter=10000)
     clf.fit(X_train, y_train.values.ravel())
     y_hat_train = clf.predict(X_train)
     y_hat_test = clf.predict(X_test)

@@ -11,12 +11,20 @@ import pandas as pd
 
 # number of splits
 n_splits = 3
+MDSFlag = True
 
-data = pd.read_csv('KC1.data')
-labels = np.array(data.iloc[: , -1])
-labels = labels.astype(int)
-data = data.drop(data.columns[-1], axis = 1)
-
+if MDSFlag:
+    inp = pd.read_csv('KC1.data')
+    labels = np.array(inp.iloc[: , -1])
+    labels = labels.astype(int)
+    data = pd.read_pickle('KC1dataMDS.pkl')
+else:
+    data = pd.read_csv('KC1.data')
+    labels = np.array(data.iloc[: , -1])
+    labels = labels.astype(int)
+    data = data.drop(data.columns[-1], axis = 1)
+    
+print(data.shape)
 X = np.array(data) # features
 y = labels         # labels
 X, y = shuffle(X, y, random_state=42) # shuffle the data

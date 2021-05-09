@@ -58,9 +58,9 @@ MDSFlag = False
 
 if MDSFlag:
     #take bug_cnt from data 
-    inp = pd.read_csv('CM1.data')
+    inp = pd.read_csv('editPDE_R3_1.csv')
     #take MDS data 
-    data = pd.read_pickle('CM1dataMDS.pkl')
+    data = pd.read_pickle('editPDE_R3_1MDS.pkl')
     df = pd.DataFrame(data)
     df['bug_cnt'] = inp.iloc[: , -1]
     df.head()
@@ -71,7 +71,7 @@ if MDSFlag:
     y = df['bug_cnt']
     #sns.pairplot(X)
 else:
-    inp = pd.read_csv('CM1.data')
+    inp = pd.read_csv('editPDE_R3_1.csv')
     df = pd.DataFrame(inp)
     df.head()
     df.info()
