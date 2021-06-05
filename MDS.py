@@ -4,7 +4,7 @@ from sklearn.manifold import MDS
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-data = pd.read_csv('CM1.data')
+data = pd.read_csv('editPDE_R3_2.csv')
 labels = np.array(data.iloc[: , -1])
 labels = labels.astype(int)
 data = data.drop(data.columns[-1], axis = 1)
@@ -17,10 +17,15 @@ feature_list = list(data.columns)
 features = np.array(data)
 
 sc = StandardScaler()
-embedding = MDS(n_components=15)
+#embedding = MDS(n_components=6)
 
-features = sc.fit_transform(features)
-features = embedding.fit_transform(features)
-features = pd.DataFrame(features)
-features.to_pickle("CM1dataMDS.pkl")
-print(features)
+for i in range (1, 47, 5):
+    if i > 1:
+        i -= 1
+    embedding = MDS(n_components=i)
+    features = sc.fit_transform(features)
+    features = embedding.fit_transform(features)
+    features = pd.DataFrame(features)
+    features.to_pickle("editPDE_R3_2" +str(i) +"pkl")
+    #print(features)
+    print(i)

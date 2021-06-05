@@ -6,7 +6,7 @@ from sklearn.utils import shuffle
 
 SEED = 42
 
-MDSFlag = True
+MDSFlag = False
 
 if MDSFlag:
     inp = pd.read_csv('editPDE_R3_1.csv')

@@ -8,9 +8,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.utils import shuffle
 import pandas as pd
-
+# razlicite dimenzije i svi setovi podataka
 # number of splits
-n_splits = 3
+n_splits = 10
 MDSFlag = False
 
 if MDSFlag:
@@ -33,8 +33,8 @@ print(type(y))
 y_true = y.copy()  # save labels for testing
 y[100:] = -1       # unlabel some of the data
 total_samples = y.shape[0]  
-
-base_classifier = SVC(probability=True, gamma=0.001, random_state=42) # can be any algo with prediction certenty
+                   # RandomForestClassifier(max_depth = 2, random_state = 42) 
+base_classifier = RandomForestClassifier(max_depth = 2, random_state = 42, n_jobs = -1) # can be any algo with prediction certenty
 
 x_values = np.arange(0.4, 1.05, 0.05)
 x_values = np.append(x_values, 0.99999)
