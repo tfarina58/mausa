@@ -15,7 +15,11 @@ import math
 # number of splits
 
 n_splits = 10
+<<<<<<< HEAD
 MDSFlag = True    
+=======
+MDSFlag = False    
+>>>>>>> 3a5d3fe8eb20420e3324a10a5985585ac9752510
 
 if MDSFlag:
     inp = pd.read_csv('editPDE_R2_0.csv')
